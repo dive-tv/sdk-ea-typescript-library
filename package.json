@@ -1,0 +1,44 @@
+{
+  "name": "@dive-tv/sdk-ea-typescript-library",
+  "version": "1.0.0",
+  "description": "Dive SDK Client for EA (Experience Amplifier)",
+  "browser": "./dist/ea.js",
+  "main": "./dist/ea.js",
+  "types": "./dist/types/src/ea.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dive-tv/sdk-ea-typescript-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dive-tv/sdk-ea-typescript-library/issues"
+  },
+  "homepage": "https://github.com/dive-tv/sdk-ea-typescript-library#readme",
+  "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.34",
+    "@types/node": "^8.0.9",
+    "@types/promise-polyfill": "^6.0.0",
+    "@types/socket.io-client": "^1.4.32",
+    "awesome-typescript-loader": "^3.2.3",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.0.5",
+    "ncp": "^2.0.0",
+    "rimraf": "^2.6.1",
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.6"
+  },
+  "dependencies": {
+    "core-js": "^2.4.0",
+    "es6-promise": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1",
+    "socket.io-client": "^2.0.4"
+  }
+}
