@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    ar: './src/ea.ts',
+    ea: './src/ea.ts',
   },
   output: {
     filename: '[name].js',
