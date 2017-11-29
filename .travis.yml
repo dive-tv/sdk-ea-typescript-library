@@ -5,12 +5,11 @@ language: node_js
 node_js:
   - "6"
  
-
 install:
-#  - chmod +x scr/publish.sh
+  - chmod +x scr/publish.sh
 
 script:
-#  - scr/publish.sh
+  - scr/publish.sh
 
 notifications:
   email: false
