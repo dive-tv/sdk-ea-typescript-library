@@ -1,6 +1,6 @@
 import * as io from 'socket.io-client';
 
-import { CustomAPI } from "../codegen/api";
+import { CustomAPI, Card } from "../codegen/api";
 
 export interface ISocketCallbacks {
   onConnect?: () => void;
@@ -86,7 +86,6 @@ export class EaAPI extends CustomAPI {
       default:
         url = `${protocol}://${url}`;
     }
-    // url = `http://192.168.17.47:3000/proxy?url={url}`;
     if (!params.channelId && params.movieId && params.timestamp !== undefined) {
       syncType = "movies";
       query.movie_id = params.movieId;
