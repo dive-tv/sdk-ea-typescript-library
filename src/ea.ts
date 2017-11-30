@@ -31,6 +31,7 @@ export class EaAPI extends CustomAPI {
    * @param deviceId User name of the user
    */
   public loginWithDevice = (deviceId: string) => {
+    this.deleteSavedToken();
     return this.postTokenAndSave({ deviceId, grantType: "device_credentials" });
   }
 
