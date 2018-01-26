@@ -194,6 +194,7 @@ export class EaAPI extends CustomAPI {
   }
 
   public gatherCommonHeaders(params?: any) {
+    //gatherCommonHeaders locale fix 2
     let newParams: any = super.gatherCommonHeaders(params);
     console.log("newParams: ", newParams);
     return newParams;
