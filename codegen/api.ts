@@ -602,7 +602,7 @@ export interface Single extends RelationModule {
     "data": Array<Card>;
 }
 
-export type SingleContentTypeEnum = "movie_vehicles" | "movie_songs" | "miscellaneous" | "highlighted" | "recommended" | "trivias" | "appears_in" | "tracklist" | "sounds_in" | "full_looks" | "look_fashion" | "fashion_set" | "other_looks" | "wears" | "home_deco" | "full_home" | "is_part_of" | "directors" | "is_chapter_of" | "composed_of" | "owns" | "belongs_to" | "filmed_in" | "represents" | "worn_by" | "plays" | "played_by";
+export type SingleContentTypeEnum = "movie_vehicles" | "movie_songs" | "miscellaneous" | "highlighted" | "recommended" | "trivias" | "appears_in" | "tracklist" | "sounds_in" | "full_looks" | "look_fashion" | "fashion_set" | "other_looks" | "wears" | "home_deco" | "full_home" | "is_part_of" | "directors" | "is_chapter_of";
 /**
  * CardContainer composed by a block of text with an optional source attribution
  */
@@ -726,7 +726,6 @@ export const DefaultApiFetchParamCreator = {
         });
         let fetchOptions: RequestInit = Object.assign({}, { method: "GET" }, options);
 
-        console.log("[getCardVersion] params: ", params);
         let contentTypeHeader: Dictionary<string> = {};
         fetchOptions.headers = Object.assign({
             "Authorization": params["authorization"],"Accept-Language": params["acceptLanguage"],
@@ -931,7 +930,7 @@ export const DefaultApiFetchParamCreator = {
         };
     },
     /**
-     * Retrieves the list of cards related to the content currently being broadcasted in the given channel
+     * Retrieves the list of cards related to the content currently being broadcasted in the provided channel
      * @summary Static channel scene
      * @param authorization Authorization token (&#39;Bearer &lt;token&gt;&#39;)
      * @param channelId Client channel ID
@@ -1114,8 +1113,6 @@ export const DefaultApiFp = {
      */
     getCard(params: { "authorization": string; "cardId": string; "acceptLanguage"?: string; "products"?: boolean; "userData"?: boolean; "imageSize"?: string;  }, options?: any): (fetch?: any, basePath?: string) => Promise<Card> {
         const fetchArgs = DefaultApiFetchParamCreator.getCard(params, options);
-        console.log("[getCard] fetchArgs: ", fetchArgs);
-        fetchArgs.options['Accept-Language'] = 'en-UK';
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response: any) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -1270,7 +1267,7 @@ export const DefaultApiFp = {
         };
     },
     /**
-     * Retrieves the list of cards related to the content currently being broadcasted in the given channel
+     * Retrieves the list of cards related to the content currently being broadcasted in the provided channel
      * @summary Static channel scene
      * @param authorization Authorization token (&#39;Bearer &lt;token&gt;&#39;)
      * @param channelId Client channel ID
@@ -1462,7 +1459,7 @@ export class DefaultApi extends BaseAPI {
         return DefaultApiFp.getReadyMovies(params, options)(this.fetch, this.basePath);
     }
     /**
-     * Retrieves the list of cards related to the content currently being broadcasted in the given channel
+     * Retrieves the list of cards related to the content currently being broadcasted in the provided channel
      * @summary Static channel scene
      * @param authorization Authorization token (&#39;Bearer &lt;token&gt;&#39;)
      * @param channelId Client channel ID
@@ -1619,7 +1616,7 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
             return DefaultApiFp.getReadyMovies(params, options)(fetch, basePath);
         },
         /**
-         * Retrieves the list of cards related to the content currently being broadcasted in the given channel
+         * Retrieves the list of cards related to the content currently being broadcasted in the provided channel
          * @summary Static channel scene
          * @param authorization Authorization token (&#39;Bearer &lt;token&gt;&#39;)
          * @param channelId Client channel ID
@@ -1743,24 +1740,11 @@ export class CustomAPI extends DefaultApi {
     } else {
         newParams.authorization = `Basic ${this.apiKey}`;
     }
-    /*
     if (params.acceptLanguage == null && this.locale !== null) {
         newParams.acceptLanguage = this.locale;
     }
     if (params["Accept-Language"] == null && this.locale !== null) {
         newParams["Accept-Language"] = this.locale;
-    }*/
-    /*Trying to set locale*/
-    if ( this.locale != null) {
-      newParams.acceptLanguage = this.locale;
-
-      if(params.acceptLanguage != null){
-        newParams.acceptLanguage += ',' + params.acceptLanguage;
-      }else if(params['Accept-Language'] != null){
-        newParams.acceptLanguage += ',' + params['Accept-Language'];
-      }
-
-      params.acceptLanguage = newParams.acceptLanguage;
     }
     return Object.assign({}, newParams, params);
   }
@@ -2298,7 +2282,7 @@ export class CustomAPI extends DefaultApi {
   }
   /**
   * Static channel scene
-  * Retrieves the list of cards related to the content currently being broadcasted in the given channel
+  * Retrieves the list of cards related to the content currently being broadcasted in the provided channel
   * @param authorization Authorization token (&#39;Bearer &lt;token&gt;&#39;)
   * @param channelId Client channel ID
   * @param acceptLanguage Client locale, as language-country
