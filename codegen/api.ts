@@ -726,6 +726,7 @@ export const DefaultApiFetchParamCreator = {
         });
         let fetchOptions: RequestInit = Object.assign({}, { method: "GET" }, options);
 
+        console.log("[getCardVersion] params: ", params);
         let contentTypeHeader: Dictionary<string> = {};
         fetchOptions.headers = Object.assign({
             "Authorization": params["authorization"],"Accept-Language": params["acceptLanguage"],
@@ -1756,6 +1757,8 @@ export class CustomAPI extends DefaultApi {
       }else if(params['Accept-Language'] != null){
         newParams.acceptLanguage += ',' + params['Accept-Language'];
       }
+
+      params.acceptLanguage = newParams.acceptLanguage;
     }
     return Object.assign({}, newParams, params);
   }
