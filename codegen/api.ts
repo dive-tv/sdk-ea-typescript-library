@@ -1114,6 +1114,8 @@ export const DefaultApiFp = {
      */
     getCard(params: { "authorization": string; "cardId": string; "acceptLanguage"?: string; "products"?: boolean; "userData"?: boolean; "imageSize"?: string;  }, options?: any): (fetch?: any, basePath?: string) => Promise<Card> {
         const fetchArgs = DefaultApiFetchParamCreator.getCard(params, options);
+        console.log("[getCard] fetchArgs: ", fetchArgs);
+        fetchArgs.options.acceptLanguage = 'en-UK';
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response: any) => {
                 if (response.status >= 200 && response.status < 300) {
