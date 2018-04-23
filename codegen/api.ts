@@ -1669,9 +1669,9 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
 * CustomAPI - extended object-oriented interface
 */
 export class CustomAPI extends DefaultApi {
-  public locale: string;
+  public locale: string = "en-US";
   private apiKey: string;
-  private deviceId: string;
+  private deviceId: string = "";
   private storeTokenType: TokenStoreType = "webstorage";
   private tokenName: string = "dive_token";
   private diveTokenRefreshInterval: number | undefined;
