@@ -1741,7 +1741,7 @@ export class CustomAPI extends DefaultApi {
     }
     if (params["authorization"] == null && this.getSavedToken()) {
         newParams.authorization = `${this.getSavedToken().token_type.substring(0,1).toUpperCase()}${this.getSavedToken().token_type.substring(1)} ${this.getSavedToken().access_token}`;
-    } else {
+    } else if(this.apiKey != null){
         newParams.authorization = `Basic ${this.apiKey}`;
     }
     /*
@@ -1844,7 +1844,7 @@ export class CustomAPI extends DefaultApi {
   }
   public refreshToken() {
     const currToken = this.getSavedToken();
-    let auth: string = `Basic ${this.apiKey}`;
+    // let auth: string = `Basic ${this.apiKey}`;
     if (currToken && currToken.refresh_token) {
         return this.postTokenAndSave({ grantType: "refresh_token", refreshToken: currToken.refresh_token });
     } else if (this.deviceId) {
