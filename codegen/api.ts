@@ -1669,7 +1669,7 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
 * CustomAPI - extended object-oriented interface
 */
 export class CustomAPI extends DefaultApi {
-  public locale: string = "en-US";
+  public locale: string;
   private apiKey: string;
   private deviceId: string = "";
   private storeTokenType: TokenStoreType = "webstorage";
@@ -1678,7 +1678,8 @@ export class CustomAPI extends DefaultApi {
   protected noAuthServices: string[] = [];
   protected environment: string = "PRO";
 
-  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string, fetch?: any } = { environment: "PRO", storeToken: "webstorage", tokenName: "dive_token", apiKey: ""}) {
+  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string, fetch?: any, locale?: string } = 
+    { environment: "PRO", storeToken: "webstorage", tokenName: "dive_token", apiKey: "", deviceId: null, locale: null}) {
     super(params.fetch, BASE_PATH);
     if (params.apiKey === "") {
       console.error("You should provide an apiKey in the params");
