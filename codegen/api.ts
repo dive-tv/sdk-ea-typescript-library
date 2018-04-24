@@ -1669,16 +1669,16 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
 * CustomAPI - extended object-oriented interface
 */
 export class CustomAPI extends DefaultApi {
-  public locale: string;
+  public locale: string | null = null;
   private apiKey: string;
-  private deviceId: string = "";
+  private deviceId: string | null = null;
   private storeTokenType: TokenStoreType = "webstorage";
   private tokenName: string = "dive_token";
   private diveTokenRefreshInterval: number | undefined;
   protected noAuthServices: string[] = [];
   protected environment: string = "PRO";
 
-  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string, fetch?: any, locale?: string } = 
+  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string | null, fetch?: any, locale?: string | null } = 
     { environment: "PRO", storeToken: "webstorage", tokenName: "dive_token", apiKey: "", deviceId: null, locale: null}) {
     super(params.fetch, BASE_PATH);
     if (params.apiKey === "") {
@@ -1697,6 +1697,9 @@ export class CustomAPI extends DefaultApi {
     }
     if (params.tokenName) {
       this.tokenName = params.tokenName;
+    }
+    if (params.locale) {
+      this.locale = params.locale;
     }
   }
 
