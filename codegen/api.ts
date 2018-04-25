@@ -1873,11 +1873,17 @@ export class CustomAPI extends DefaultApi {
     const expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
-  public postTokenAndSave(params?: {grantType: string, username?: string, password?: string, deviceId?: string, refreshToken?: string}, options?: any) {
+  public postTokenAndSave(params?: {grantType: string, username?: string, password?: string, deviceId?: string, refreshToken?: string, clientId:?: string}, options?: any) {
     this.deleteSavedToken();
     return new Promise((resolve: any, reject: any) => {
       const newParams: any = Object.assign({}, this.gatherCommonHeaders(params));
-      const request = this.postToken(newParams, options);
+      let request: any;
+      
+      if(params.clientId == null){
+        request = this.postToken(newParams, options);
+      }else{
+        request = this.postTokenClientUser(newParams, options);
+      }
       request.then((newToken: AccessToken) => {
         this.writeToken(newToken);
         resolve();
