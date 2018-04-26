@@ -1,3 +1,4 @@
+import { AccessToken } from './../codegen/api';
 import * as io from 'socket.io-client';
 
 import { CustomAPI, Card } from "../codegen/api";
@@ -33,6 +34,11 @@ export class EaAPI extends CustomAPI {
   public loginWithDevice = (deviceId: string) => {
     this.deleteSavedToken();
     return this.postTokenAndSave({ deviceId, grantType: "device_credentials" });
+  }
+
+  public loginWithToken = (token: string) => {
+    this.deleteSavedToken();
+    this.writeToken(JSON.parse(token) as AccessToken);
   }
 
   public syncWithMovieVOD(params: { movieId?: string, timestamp?: number, protocol?: "http" | "https", callbacks?: ISocketCallbacks, socketTransports?: string[] }) {
@@ -196,7 +202,7 @@ export class EaAPI extends CustomAPI {
   public gatherCommonHeaders(params?: any) {
     //gatherCommonHeaders locale fix 2
     let newParams: any = super.gatherCommonHeaders(params);
-    
+
     return newParams;
   }
 
