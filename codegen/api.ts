@@ -1901,6 +1901,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Delete card like
   * Removes a card from current user&#39;s likes list
