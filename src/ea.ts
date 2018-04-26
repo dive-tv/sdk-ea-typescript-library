@@ -37,7 +37,7 @@ export class EaAPI extends CustomAPI {
   }
 
   public loginWithToken = (token: string) => {
-    this.deleteSavedToken();
+    // this.deleteSavedToken();
     this.writeToken(JSON.parse(token) as AccessToken);
   }
 
