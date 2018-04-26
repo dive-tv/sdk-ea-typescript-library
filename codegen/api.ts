@@ -1671,7 +1671,7 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
 export class CustomAPI extends DefaultApi {
   public locale: string | null = null;
   private apiKey: string;
-  private clientId: string;
+  private clientId: string | null;
   private deviceId: string | null = null;
   private storeTokenType: TokenStoreType = "webstorage";
   private tokenName: string = "dive_token";
@@ -1690,6 +1690,7 @@ export class CustomAPI extends DefaultApi {
     if (params.deviceId) {
         this.setDeviceId(params.deviceId);
     }
+    this.clientId = null;
     if (params.environment) {
       this.setEnvironment(params.environment);
     }
@@ -1881,7 +1882,7 @@ export class CustomAPI extends DefaultApi {
     return new Promise((resolve: any, reject: any) => {
       const newParams: any = Object.assign({}, this.gatherCommonHeaders(params));
       let request: any;
-      if( params.clientId != null){
+      if( params != null && params.clientId != null){
         this.clientId = params.clientId;
       }
       if(this.clientId == null){
