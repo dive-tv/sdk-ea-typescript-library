@@ -1901,7 +1901,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
-  
+
   /**
   * Delete card like
   * Removes a card from current user&#39;s likes list
@@ -1946,6 +1946,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Full card detail
   * Retrieves a full card detail, with no relations or context
@@ -1993,6 +1994,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Full card detail with version
   * Retrieves a full card detail, and its relations to other cards in a given context (card version)
@@ -2042,6 +2044,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Movie catalog info
   * Retrieves a movie&#39;s full card by its client ID, including catalog and cast information
@@ -2087,6 +2090,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Channel events grid
   * Returns the current and upcoming grid of TV events for the given channel
@@ -2132,6 +2136,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Channel movie catalog info
   * Retrieves full card detail, including catalog and cast information, for the content currently being broadcasted on the channel
@@ -2177,6 +2182,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Get card likes
   * Returns a paginated list of cards liked by current user
@@ -2223,6 +2229,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Channel sync availability
   * Checks if a list of client channel identifiers are currently broadcasting synchronizable content
@@ -2267,6 +2274,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Movie sync availability
   * Checks whether a list of client movie identifiers (Video On Demand) are available to be synchronized using the Dive API
@@ -2311,6 +2319,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Static channel scene
   * Retrieves the list of cards related to the content currently being broadcasted in the given channel
@@ -2357,6 +2366,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Static VOD scene
   * Retrieves the current list of cards related to the given movie scene
@@ -2404,6 +2414,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Add card like
   * Stores a card under current user&#39;s likes list
@@ -2448,6 +2459,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   /**
   * Token endpoint
   * The token endpoint is used to obtain access tokens which allow clients to make API requests
@@ -2494,6 +2506,7 @@ export class CustomAPI extends DefaultApi {
       });
     });
   }
+  
   private serviceRequiresToken(methodName: string) {
     return this.noAuthServices.indexOf(methodName) === -1;
   }
