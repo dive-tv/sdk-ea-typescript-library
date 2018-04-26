@@ -1669,25 +1669,28 @@ export const DefaultApiFactory = function (fetch?: any, basePath?: string) {
 * CustomAPI - extended object-oriented interface
 */
 export class CustomAPI extends DefaultApi {
-  public locale: string;
+  public locale: string | null = null;
   private apiKey: string;
-  private deviceId: string;
+  private clientId: string | null;
+  private deviceId: string | null = null;
   private storeTokenType: TokenStoreType = "webstorage";
   private tokenName: string = "dive_token";
   private diveTokenRefreshInterval: number | undefined;
   protected noAuthServices: string[] = [];
   protected environment: string = "PRO";
 
-  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string, fetch?: any } = { environment: "PRO", storeToken: "webstorage", tokenName: "dive_token", apiKey: ""}) {
+  constructor(params: { environment: "DEV" | "PRE" | "PRO", tokenName?: string, storeToken?: TokenStoreType, apiKey: string, deviceId?: string | null, fetch?: any, locale?: string | null } = 
+    { environment: "PRO", storeToken: "webstorage", tokenName: "dive_token", apiKey: "", deviceId: null, locale: null}) {
     super(params.fetch, BASE_PATH);
     if (params.apiKey === "") {
-      console.error("You should provide an apiKey in the params");
-      throw new Error("You should provide an apiKey in the params");
+      console.log("You should provide an apiKey in the params");
+      // throw new Error("You should provide an apiKey in the params");
     }
     this.apiKey = params.apiKey;
     if (params.deviceId) {
         this.setDeviceId(params.deviceId);
     }
+    this.clientId = null;
     if (params.environment) {
       this.setEnvironment(params.environment);
     }
@@ -1696,6 +1699,9 @@ export class CustomAPI extends DefaultApi {
     }
     if (params.tokenName) {
       this.tokenName = params.tokenName;
+    }
+    if (params.locale) {
+      this.locale = params.locale;
     }
   }
 
@@ -1729,7 +1735,7 @@ export class CustomAPI extends DefaultApi {
     if (!params) {
         params = {};
     }
-    if (params["connection"] == null) {
+    if (params["connection"] == null) { 
         newParams.connection = "keep-alive";
     }
     if (params["acceptEncoding"] == null) {
@@ -1737,7 +1743,8 @@ export class CustomAPI extends DefaultApi {
     }
     if (params["authorization"] == null && this.getSavedToken()) {
         newParams.authorization = `${this.getSavedToken().token_type.substring(0,1).toUpperCase()}${this.getSavedToken().token_type.substring(1)} ${this.getSavedToken().access_token}`;
-    } else {
+    } else if(this.apiKey != null){
+        console.log("[api] No authorization");
         newParams.authorization = `Basic ${this.apiKey}`;
     }
     /*
@@ -1840,7 +1847,7 @@ export class CustomAPI extends DefaultApi {
   }
   public refreshToken() {
     const currToken = this.getSavedToken();
-    let auth: string = `Basic ${this.apiKey}`;
+    // let auth: string = `Basic ${this.apiKey}`;
     if (currToken && currToken.refresh_token) {
         return this.postTokenAndSave({ grantType: "refresh_token", refreshToken: currToken.refresh_token });
     } else if (this.deviceId) {
@@ -1869,11 +1876,21 @@ export class CustomAPI extends DefaultApi {
     const expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
-  public postTokenAndSave(params?: {grantType: string, username?: string, password?: string, deviceId?: string, refreshToken?: string}, options?: any) {
+
+  public postTokenAndSave(params?: {grantType: string, username?: string, password?: string, deviceId?: string, refreshToken?: string, clientId?: string}, options?: any) {
     this.deleteSavedToken();
     return new Promise((resolve: any, reject: any) => {
       const newParams: any = Object.assign({}, this.gatherCommonHeaders(params));
-      const request = this.postToken(newParams, options);
+      let request: any;
+      if( params != null && params.clientId != null){
+        this.clientId = params.clientId;
+      }
+      if(this.clientId == null){
+        request = this.postToken(newParams, options);
+      }else{
+        newParams.clientId = this.clientId;
+        request = this.postTokenClientUser({tokenDataRequest:newParams}, options);
+      }
       request.then((newToken: AccessToken) => {
         this.writeToken(newToken);
         resolve();
