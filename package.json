@@ -1,6 +1,6 @@
 {
   "name": "@dive-tv/sdk-ea-typescript-library",
-  "version": "1.1.23",
+  "version": "1.1.24",
   "description": "Dive SDK Client for EA (Experience Amplifier)",
   "browser": "./dist/ea.js",
   "main": "./dist/ea.js",
