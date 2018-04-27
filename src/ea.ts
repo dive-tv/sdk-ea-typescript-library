@@ -36,9 +36,9 @@ export class EaAPI extends CustomAPI {
     return this.postTokenAndSave({ deviceId, grantType: "device_credentials" });
   }
 
-  public loginWithToken = (token: string) => {
+  public loginWithToken = (token: AccessToken) => {
     // this.deleteSavedToken();
-    this.writeToken(JSON.parse(token) as AccessToken);
+    this.writeToken(token);
   }
 
   public syncWithMovieVOD(params: { movieId?: string, timestamp?: number, protocol?: "http" | "https", callbacks?: ISocketCallbacks, socketTransports?: string[] }) {
