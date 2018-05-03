@@ -38,7 +38,11 @@ export class EaAPI extends CustomAPI {
 
   public loginWithToken = (token: AccessToken) => {
     // this.deleteSavedToken();
-    this.writeToken(token);
+    return new Promise<any>((resolve, reject) => {
+      this.writeToken(token);
+      resolve();
+    });
+
   }
 
   public syncWithMovieVOD(params: { movieId?: string, timestamp?: number, protocol?: "http" | "https", callbacks?: ISocketCallbacks, socketTransports?: string[] }) {
