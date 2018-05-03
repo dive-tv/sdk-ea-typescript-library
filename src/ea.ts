@@ -38,9 +38,14 @@ export class EaAPI extends CustomAPI {
 
   public loginWithToken = (token: AccessToken) => {
     // this.deleteSavedToken();
+    const localToken: AccessToken = token;
     return new Promise<any>((resolve, reject) => {
-      this.writeToken(token);
-      resolve();
+      if (localToken == null) {
+        return reject();
+      }
+      console.log("[loginWithToken]");
+      this.writeToken(localToken);
+      return resolve();
     });
 
   }
