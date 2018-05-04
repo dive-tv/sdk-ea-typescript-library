@@ -43,7 +43,6 @@ export class EaAPI extends CustomAPI {
       if (localToken == null) {
         return reject();
       }
-      console.log("[loginWithToken]");
       this.writeToken(localToken);
       return resolve();
     });
